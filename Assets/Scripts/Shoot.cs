@@ -37,8 +37,12 @@ public class Shoot : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(_shootEffect.transform.position, transform.forward, out hit))
         {
-            _hitEffect.transform.position = hit.point;
-            _hitEffect.Play();
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                hit.collider.GetComponent<ChangeEnemyMaterial>().ChangeMaterial();
+                _hitEffect.transform.position = hit.point;
+                _hitEffect.Play();
+            }
         }
     }
 }
